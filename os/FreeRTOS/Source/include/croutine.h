@@ -100,7 +100,7 @@ typedef struct corCoRoutineControlBlock
 
 /**
  * croutine. h
- ***<pre>
+ ****<pre>
  *  BaseType_t xCoRoutineCreate(
  *                                crCOROUTINE_CODE pxCoRoutineCode,
  *                                UBaseType_t uxPriority,
@@ -175,7 +175,7 @@ BaseType_t        xCoRoutineCreate( crCOROUTINE_CODE pxCoRoutineCode, UBaseType_
 
 /**
  * croutine. h
- ***<pre>
+ ****<pre>
  *  void vCoRoutineSchedule( void );</pre>
  *
  * Run a co-routine.
@@ -285,7 +285,7 @@ void        vCoRoutineSchedule( void );
 
 /**
  * croutine. h
- ***<pre>
+ ****<pre>
  *  crDELAY( CoRoutineHandle_t xHandle, TickType_t xTicksToDelay );</pre>
  *
  * Delay a co-routine for a fixed period of time.

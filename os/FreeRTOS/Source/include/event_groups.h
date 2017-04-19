@@ -133,7 +133,7 @@ typedef TickType_t EventBits_t;
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *  EventGroupHandle_t xEventGroupCreate( void );
  *  </pre>
  *
@@ -177,7 +177,7 @@ EventGroupHandle_t        xEventGroupCreate( void ) PRIVILEGED_FUNCTION;
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       EventBits_t xEventGroupWaitBits(   EventGroupHandle_t xEventGroup,
  *                                                                               const EventBits_t uxBitsToWaitFor,
  *                                                                               const BaseType_t xClearOnExit,
@@ -228,8 +228,8 @@ EventGroupHandle_t        xEventGroupCreate( void ) PRIVILEGED_FUNCTION;
  *
  * Example usage:
  *  <pre>
- **#define BIT_0	( 1 << 0 )
- **#define BIT_4	( 1 << 4 )
+ ***#define BIT_0	( 1 << 0 )
+ ***#define BIT_4	( 1 << 4 )
  *
  *  void aFunction( EventGroupHandle_t xEventGroup )
  *  {
@@ -271,7 +271,7 @@ EventBits_t        xEventGroupWaitBits( EventGroupHandle_t xEventGroup, const Ev
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       EventBits_t xEventGroupClearBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToClear );
  *  </pre>
  *
@@ -288,8 +288,8 @@ EventBits_t        xEventGroupWaitBits( EventGroupHandle_t xEventGroup, const Ev
  *
  * Example usage:
  *  <pre>
- **#define BIT_0	( 1 << 0 )
- **#define BIT_4	( 1 << 4 )
+ ***#define BIT_0	( 1 << 0 )
+ ***#define BIT_4	( 1 << 4 )
  *
  *  void aFunction( EventGroupHandle_t xEventGroup )
  *  {
@@ -328,7 +328,7 @@ EventBits_t        xEventGroupClearBits( EventGroupHandle_t xEventGroup, const E
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       BaseType_t xEventGroupClearBitsFromISR( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet );
  *  </pre>
  *
@@ -356,8 +356,8 @@ EventBits_t        xEventGroupClearBits( EventGroupHandle_t xEventGroup, const E
  *
  * Example usage:
  *  <pre>
- **#define BIT_0	( 1 << 0 )
- **#define BIT_4	( 1 << 4 )
+ ***#define BIT_0	( 1 << 0 )
+ ***#define BIT_4	( 1 << 4 )
  *
  *  // An event group which it is assumed has already been created by a call to
  *  // xEventGroupCreate().
@@ -387,7 +387,7 @@ BaseType_t        xEventGroupClearBitsFromISR( EventGroupHandle_t xEventGroup, c
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       EventBits_t xEventGroupSetBits( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet );
  *  </pre>
  *
@@ -416,8 +416,8 @@ BaseType_t        xEventGroupClearBitsFromISR( EventGroupHandle_t xEventGroup, c
  *
  * Example usage:
  *  <pre>
- **#define BIT_0	( 1 << 0 )
- **#define BIT_4	( 1 << 4 )
+ ***#define BIT_0	( 1 << 0 )
+ ***#define BIT_4	( 1 << 4 )
  *
  *  void aFunction( EventGroupHandle_t xEventGroup )
  *  {
@@ -461,7 +461,7 @@ EventBits_t        xEventGroupSetBits( EventGroupHandle_t xEventGroup, const Eve
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       BaseType_t xEventGroupSetBitsFromISR( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet, BaseType_t *pxHigherPriorityTaskWoken );
  *  </pre>
  *
@@ -497,8 +497,8 @@ EventBits_t        xEventGroupSetBits( EventGroupHandle_t xEventGroup, const Eve
  *
  * Example usage:
  *  <pre>
- **#define BIT_0	( 1 << 0 )
- **#define BIT_4	( 1 << 4 )
+ ***#define BIT_0	( 1 << 0 )
+ ***#define BIT_4	( 1 << 4 )
  *
  *  // An event group which it is assumed has already been created by a call to
  *  // xEventGroupCreate().
@@ -539,7 +539,7 @@ BaseType_t        xEventGroupSetBitsFromISR( EventGroupHandle_t xEventGroup, con
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       EventBits_t xEventGroupSync(	EventGroupHandle_t xEventGroup,
  *                                                                       const EventBits_t uxBitsToSet,
  *                                                                       const EventBits_t uxBitsToWaitFor,
@@ -585,11 +585,11 @@ BaseType_t        xEventGroupSetBitsFromISR( EventGroupHandle_t xEventGroup, con
  * Example usage:
  *  <pre>
  *  // Bits used by the three tasks.
- **#define TASK_0_BIT		( 1 << 0 )
- **#define TASK_1_BIT		( 1 << 1 )
- **#define TASK_2_BIT		( 1 << 2 )
+ ***#define TASK_0_BIT		( 1 << 0 )
+ ***#define TASK_1_BIT		( 1 << 1 )
+ ***#define TASK_2_BIT		( 1 << 2 )
  *
- **#define ALL_SYNC_BITS ( TASK_0_BIT | TASK_1_BIT | TASK_2_BIT )
+ ***#define ALL_SYNC_BITS ( TASK_0_BIT | TASK_1_BIT | TASK_2_BIT )
  *
  *  // Use an event group to synchronise three tasks.  It is assumed this event
  *  // group has already been created elsewhere.
@@ -666,7 +666,7 @@ EventBits_t        xEventGroupSync( EventGroupHandle_t xEventGroup, const EventB
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       EventBits_t xEventGroupGetBits( EventGroupHandle_t xEventGroup );
  *  </pre>
  *
@@ -684,7 +684,7 @@ EventBits_t        xEventGroupSync( EventGroupHandle_t xEventGroup, const EventB
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       EventBits_t xEventGroupGetBitsFromISR( EventGroupHandle_t xEventGroup );
  *  </pre>
  *
@@ -701,7 +701,7 @@ EventBits_t        xEventGroupGetBitsFromISR( EventGroupHandle_t xEventGroup ) P
 
 /**
  * event_groups.h
- ***<pre>
+ ****<pre>
  *       void xEventGroupDelete( EventGroupHandle_t xEventGroup );
  *  </pre>
  *

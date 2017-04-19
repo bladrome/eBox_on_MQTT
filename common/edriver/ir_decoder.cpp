@@ -17,7 +17,7 @@
  *       * use swith case function instead of if
  * -Link                                  - Version 1.2 (2016/01/10)
  *           * use class IC_CAPTURE instead of timer
- ***-shentq                                 - Version 1.3 (2016/03/09)
+ ****-shentq                                 - Version 1.3 (2016/03/09)
  *           * update class IC_CAPTURE
  */
 

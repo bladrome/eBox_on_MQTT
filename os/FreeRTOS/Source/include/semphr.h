@@ -549,8 +549,8 @@ typedef QueueHandle_t SemaphoreHandle_t;
  *
  * Example usage:
  *  <pre>
- **\#define LONG_TIME 0xffff
- **\#define TICKS_TO_WAIT	10
+ ***\#define LONG_TIME 0xffff
+ ***\#define TICKS_TO_WAIT	10
  *  SemaphoreHandle_t xSemaphore = NULL;
  *
  *  // Repetitive task.

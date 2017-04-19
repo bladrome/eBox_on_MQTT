@@ -11,38 +11,39 @@ class EthIPStack
 public:
     EthIPStack()
     {
+        has_ip = 0;
         tcp.begin(SOCKET7, 3000);
     }
 
     int        dnsquery(char* name)
     {
-//		int ret;
-//		ret = ddns.query(name);
-//		if ( ret == 1 )
-//		{
-//			hostip[0] = ddns.domain_ip[0];
-//			hostip[1] = ddns.domain_ip[1];
-//			hostip[2] = ddns.domain_ip[2];
-//			hostip[3] = ddns.domain_ip[3];
-//		}
-//
-//		return ret;
-        hostip[0] = 198;
-        hostip[1] = 41;
-        hostip[2] = 30;
-        hostip[3] = 241;
-        return 0;
+        int         ret;
+        DNS         ddns;
+        ddns.begin(SOCKET7, 2000);
+        ret = ddns.query((char*)name);
+        if(ret == 1)
+            uart1.printf("Get [%s]'s IP address [%d.%d.%d.%d]\n", name, ddns.domain_ip[0], ddns.domain_ip[1], ddns.domain_ip[2], ddns.domain_ip[3]);
+        else if(ret == -1)
+            uart1.printf("未知请求\r\n");
+        else if(ret == -2)
+            uart1.printf("获取超时\r\n");
+
+        hostip[0] = ddns.domain_ip[0];
+        hostip[1] = ddns.domain_ip[1];
+        hostip[2] = ddns.domain_ip[2];
+        hostip[3] = ddns.domain_ip[3];
+        return 1;
     }
 
     int        connect(char* hostname, int port)
     {
-        dnsquery(hostname);
+        if( !has_ip )
+            dnsquery(hostname);
         return tcp.connect(hostip, port);
     }
 
     int        connect(u8 hostname[], int port)
     {
-        //uart1.printf("Calling conncect hostname\n");
         return tcp.connect(hostname, port);
     }
 
@@ -79,8 +80,8 @@ public:
 
 private:
     TCPCLIENT           tcp;
-    DNS                 ddns;
     u8                  hostip[4];
+    int                 has_ip;
 };
 
 #endif
