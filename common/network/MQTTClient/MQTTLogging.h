@@ -14,6 +14,7 @@
  *    Ian Craggs - initial API and implementation and/or initial documentation
  *******************************************************************************/
 
+#include "ebox.h"
 #if !defined(MQTT_LOGGING_H)
 #define MQTT_LOGGING_H
 
@@ -21,34 +22,29 @@
 #if !defined(DEBUG)
 #define DEBUG(...)    \
     {\
-    fprintf(STREAM, "DEBUG:   %s L#%d ", __PRETTY_FUNCTION__, __LINE__);  \
-    fprintf(STREAM, ##__VA_ARGS__); \
-    fflush(STREAM); \
+    uart1.printf("DEBUG:   %s L#%d ", __PRETTY_FUNCTION__, __LINE__);  \
+    uart1.printf(##__VA_ARGS__); \
     }
 #endif
 #if !defined(LOG)
 #define LOG(...)    \
     {\
-    fprintf(STREAM, "LOG:   %s L#%d ", __PRETTY_FUNCTION__, __LINE__);  \
-    fprintf(STREAM, ##__VA_ARGS__); \
-    fflush(STREAM); \
+    uart1.printf("LOG:   %s L#%d ", __PRETTY_FUNCTION__, __LINE__);  \
+    uart1.printf(##__VA_ARGS__); \
     }
 #endif
 #if !defined(WARN)
 #define WARN(...)   \
     { \
-    fprintf(STREAM, "WARN:  %s L#%d ", __PRETTY_FUNCTION__, __LINE__);  \
-    fprintf(STREAM, ##__VA_ARGS__); \
-    fflush(STREAM); \
+    uart1.printf("WARN:  %s L#%d ", __PRETTY_FUNCTION__, __LINE__);  \
+    uart1.printf(##__VA_ARGS__); \
     }
 #endif 
 #if !defined(ERROR)
 #define ERROR(...)  \
     { \
-    fprintf(STREAM, "ERROR: %s L#%d ", __PRETTY_FUNCTION__, __LINE__); \
-    fprintf(STREAM, ##__VA_ARGS__); \
-    fflush(STREAM); \
-    exit(1); \
+    uart1.printf("ERROR: %s L#%d ", __PRETTY_FUNCTION__, __LINE__); \
+    uart1.printf(##__VA_ARGS__); \
     }
 #endif
 

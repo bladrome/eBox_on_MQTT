@@ -26,13 +26,14 @@
 #include <string.h>
 #include "FP.h"
 #include "MQTTPacket.h"
+#include "stdio.h"
 #include "MQTTLogging.h"
 
 #if !defined(MQTTCLIENT_QOS1)
     #define MQTTCLIENT_QOS1 1
 #endif
 #if !defined(MQTTCLIENT_QOS2)
-    #define MQTTCLIENT_QOS2 0
+    #define MQTTCLIENT_QOS2 1
 #endif
 
 namespace MQTT
@@ -334,7 +335,7 @@ int MQTT::Client<Network, Timer, a, b>::sendPacket(int length, Timer& timer)
 
     while (sent < length && !timer.expired())
     {
-        rc = ipstack.write((unsigned char*)&sendbuf[sent], length - sent, timer.left_ms());
+        rc = ipstack.write(&sendbuf[sent], length - sent, timer.left_ms());
         if (rc < 0)  // there was an error writing the data
             break;
         sent += rc;
@@ -374,7 +375,7 @@ int MQTT::Client<Network, Timer, a, b>::decodePacket(int* value, int timeout)
             rc = MQTTPACKET_READ_ERROR; /* bad data */
             goto exit;
         }
-        rc = ipstack.read((unsigned char*)&c, 1, timeout);
+        rc = ipstack.read(&c, 1, timeout);
         if (rc != 1)
             goto exit;
         *value += (c & 127) * multiplier;
@@ -400,7 +401,7 @@ int MQTT::Client<Network, Timer, MAX_MQTT_PACKET_SIZE, b>::readPacket(Timer& tim
     int rem_len = 0;
 
     /* 1. read the header byte.  This has the packet type in it */
-    if (ipstack.read((unsigned char*)readbuf, 1, timer.left_ms()) != 1)
+    if (ipstack.read(readbuf, 1, timer.left_ms()) != 1)
         goto exit;
 
     len = 1;
@@ -415,7 +416,7 @@ int MQTT::Client<Network, Timer, MAX_MQTT_PACKET_SIZE, b>::readPacket(Timer& tim
 	}
 
     /* 3. read the rest of the buffer using a callback to supply the rest of the data */
-    if (rem_len > 0 && (ipstack.read((unsigned char*)(readbuf + len), rem_len, timer.left_ms()) != rem_len))
+    if (rem_len > 0 && (ipstack.read(readbuf + len, rem_len, timer.left_ms()) != rem_len))
         goto exit;
 
     header.byte = readbuf[0];

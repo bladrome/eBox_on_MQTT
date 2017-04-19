@@ -46,7 +46,7 @@ public:
 		return tcp.connect(hostname, port);
     }
 
-    int read(unsigned char* buffer, int len, int timeout = 500)
+    int read(unsigned char* buffer, int len, int timeout = 1000)
     {
         int interval = 10;  // all times are in milliseconds
 		int total = 0, rc = -1;
@@ -64,7 +64,7 @@ public:
 		return rc;
     }
     
-    int write(unsigned char* buffer, int len, int timeout = 500)
+    int write(unsigned char* buffer, int len, int timeout = 1000)
     {
         //tcp.setTimeout(timeout);  
 		//uart1.printf("Calling write \n");

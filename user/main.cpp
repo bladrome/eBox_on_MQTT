@@ -4,7 +4,6 @@
 #include <Countdown.h>
 #include <MQTTClient.h>
 
-#define MQTTCLIENT_QOS2 1
 u8 mac[6] = {0x00, 0x08, 0xdc, 0x11, 0x11, 0x11};
 u8 lip[4] = {192, 168, 1, 119};
 u8 sub[4] = {255, 255, 255, 0};
@@ -51,6 +50,8 @@ void connect()
   uart1.printf("MQTT subscribed\n");
 }
 
+
+
 void setup()
 {
   ebox_init();
@@ -58,12 +59,15 @@ void setup()
   uart1.printf("MQTT Hello example\n");
   w5500.begin(2, mac, lip, sub, gw, dns);
   attach_eth_to_socket(&w5500);
-	
+  //test
+	uart1.printf("QOS0:%d	QOS1:%d		QOS2:%d\n", MQTT::QOS0, MQTT::QOS1, MQTT::QOS2);
   connect();
+
 }
 
 void loop()
 {
+
   if (!client.isConnected())
     connect();
 
@@ -80,7 +84,9 @@ void loop()
   message.payload = (void*)buf;
   message.payloadlen = strlen(buf) + 1;
   int rc = client.publish(topic, message);
-  while (arrivedcount == 0)
+  if (rc != 0 )
+    uart1.printf("Error %d from sending QoS 0 message\n", rc);
+  else while (arrivedcount == 0)
     client.yield(1000);
 
   // Send and receive QoS 1 message
@@ -88,19 +94,24 @@ void loop()
   message.qos = MQTT::QOS1;
   message.payloadlen = strlen(buf) + 1;
   rc = client.publish(topic, message);
-  while (arrivedcount == 1)
+  if (rc != 0 )
+    uart1.printf("Error %d from sending QoS 1 message\n", rc);
+  else while (arrivedcount == 1)
     client.yield(1000);
+
 
   // Send and receive QoS 2 message
   uart1.printf("Hello World!  QoS 2 message\n");
   message.qos = MQTT::QOS2;
   message.payloadlen = strlen(buf) + 1;
   rc = client.publish(topic, message);
-  while (arrivedcount == 2)
-    client.yield(1000);
-
-  delay_ms(2000);
+  if (rc != 0 )
+    uart1.printf("Error %d from sending QoS 2 message\n", rc);
+  else while (arrivedcount == 2)
+    client.yield(500);
 }
+
+
 
 int main()
 {
@@ -108,19 +119,19 @@ int main()
 	while(1)
 	{
 		loop();
-		
 	}
-	
+
 	return 0;
 }
-
 
 void messageArrived(MQTT::MessageData& md)
 {
   MQTT::Message &message = md.message;
-
   uart1.printf("Message %d arrived: qos %d, retained %d, dup %d, packetid %d\n",
+
           ++arrivedcount, message.qos, message.retained, message.dup, message.id);
   uart1.printf("Payload %s\n", (char*)message.payload);
 }
+
+
 
