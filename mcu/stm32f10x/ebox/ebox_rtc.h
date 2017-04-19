@@ -48,8 +48,8 @@ class Rtc
 
 public:
     int        begin(uint8_t clock_source); //1:LSE;0:LSI如果使用外部晶振
-                                           //正常返回EOK
-                                           //失败后会返回一个ETIMEOUT错误,并自动转为内部晶振。
+                                            //正常返回EOK
+                                            //失败后会返回一个ETIMEOUT错误,并自动转为内部晶振。
 
     void        attach_overflow_interrupt(void (*cb_fun)(void));
     void        attach_alarm_interrupt(void (*cb_fun)(void));

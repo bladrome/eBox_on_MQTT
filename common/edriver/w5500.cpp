@@ -24,10 +24,10 @@
 
 W5500::W5500(Gpio *cs, Gpio *rst, Gpio *int_pin, Spi *spi)
 {
-        this->cs      = cs;
-        this->rst_pin = rst;
-        this->int_pin = int_pin;
-        this->spi     = spi;
+    this->cs      = cs;
+    this->rst_pin = rst;
+    this->int_pin = int_pin;
+    this->spi     = spi;
 }
 
 

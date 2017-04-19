@@ -51,7 +51,7 @@ extern "C" {
 typedef struct
 {
     uint16_t TIM_Prescaler;       /*!< Specifies the prescaler value used to divide the TIM clock.
-                                   *    This parameter can be a number between 0x0000 and 0xFFFF */
+                                  *    This parameter can be a number between 0x0000 and 0xFFFF */
 
     uint16_t TIM_CounterMode;     /*!< Specifies the counter mode.
                                    *    This parameter can be a value of @ref TIM_Counter_Mode */

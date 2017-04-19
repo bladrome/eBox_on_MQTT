@@ -85,7 +85,7 @@ typedef struct
                                        *    This parameter can be a value of @ref EXTIMode_TypeDef */
 
     FunctionalState EXTI_LineCmd;   /*!< Specifies the new state of the selected EXTI lines.
-                                    *     This parameter can be set either to ENABLE or DISABLE */
+                                     *     This parameter can be set either to ENABLE or DISABLE */
 }EXTI_InitTypeDef;
 
 /**

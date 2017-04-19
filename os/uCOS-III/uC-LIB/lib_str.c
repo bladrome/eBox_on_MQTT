@@ -1129,7 +1129,7 @@ CPU_INT16S  Str_CmpIgnoreCase (const CPU_CHAR * p1_str,
  *                           (A) Strings identical; 0 returned.
  *
  *                       See also Note #2a1C.
- **$PAGE*
+ ***$PAGE*
  *               (4) Since 16-bit signed arithmetic is performed to calculate a non-identical comparison
  *                   return value, 'CPU_CHAR' native data type size MUST be 8-bit.
  *********************************************************************************************************
@@ -2004,7 +2004,7 @@ CPU_CHAR  *Str_Str_N (const CPU_CHAR *  pstr,
  *                               pstr     = "???"                See Note #6b
  *
  *               (2) The number's base MUST be between 2 & 36, inclusive.
- **$PAGE*
+ ***$PAGE*
  *               (3) Leading character option prepends leading characters prior to the first non-zero digit.
  *
  *                   (a) (1) Leading character MUST be a printable ASCII character.
@@ -2167,7 +2167,7 @@ CPU_CHAR  *Str_FmtNbr_Int32U (CPU_INT32U    nbr,
  *                               pstr     = "?????"              See Note #6b
  *
  *               (2) The number's base MUST be between 2 & 36, inclusive.
- **$PAGE*
+ ***$PAGE*
  *               (3) Leading character option prepends leading characters prior to the first non-zero digit.
  *
  *                   (a) (1) Leading character MUST be a printable ASCII character.
@@ -2247,7 +2247,7 @@ CPU_CHAR  *Str_FmtNbr_Int32U (CPU_INT32U    nbr,
  *                       (4) ... then one digit of '0' value is formatted.
  *
  *                           This is NOT a leading character; but a single integer digit of '0' value.
- **$PAGE*
+ ***$PAGE*
  *               (4) (a) NULL-character terminate option DISABLED prevents overwriting previous character
  *                       array formatting.
  *
@@ -2362,7 +2362,7 @@ CPU_CHAR  *Str_FmtNbr_Int32S (CPU_INT32S    nbr,
  *
  *                   (b) Some CPUs' &/or compilers' floating-point implementations MAY further reduce the
  *                       maximum accuracy.
- **$PAGE*
+ ***$PAGE*
  *               (2) (a) If the total number of digits to format ('nbr_dig + nbr_dp') is zero; then NO
  *                       formatting is performed except possible NULL-termination of the string (see Note #4).
  *
@@ -2442,7 +2442,7 @@ CPU_CHAR  *Str_FmtNbr_Int32S (CPU_INT32S    nbr,
  *                                       nbr_dp  =  2
  *
  *                                       pstr    = "0.78"
- **$PAGE*
+ ***$PAGE*
  *                   (c) (1) If the total number of digits to format ('nbr_dig + nbr_dp') is greater than ... :
  *
  *                           (A) ... the maximum accuracy of the CPU's &/or compiler's 32-bit floating-point
@@ -2531,7 +2531,7 @@ CPU_CHAR  *Str_FmtNbr_Int32S (CPU_INT32S    nbr,
  *                           This is NOT a leading character; but a single integer digit of '0' value.
  *
  *                       See also Note #2b4B.
- **$PAGE*
+ ***$PAGE*
  *               (4) (a) NULL-character terminate option DISABLED prevents overwriting previous character
  *                       array formatting.
  *
@@ -2885,7 +2885,7 @@ CPU_CHAR  *Str_FmtNbr_32 (CPU_FP32      nbr,
  *                           (C) (1) (a) "A final string of one or more unrecognized characters,"  ...
  *                                   (b) "including the terminating null byte of the input string" ...
  *                               (2) "other than a sign or a permissible letter or digit."
- **$PAGE*
+ ***$PAGE*
  *                       (2) Second, "they shall attempt to convert the subject sequence to an unsigned integer" :
  *
  *                           (A) "If the subject sequence is empty or does not have the expected form" :
@@ -2975,7 +2975,7 @@ CPU_CHAR  *Str_FmtNbr_32 (CPU_FP32      nbr,
  *                           nbr       =  0
  *                           pstr_next = "GABCDE"
  *
- **$PAGE*
+ ***$PAGE*
  *                   (f) Parse string integer overflow :
  *
  *                           pstr      = "   12345678901234567890*123456"
@@ -3099,7 +3099,7 @@ CPU_INT32U  Str_ParseNbr_Int32U (const CPU_CHAR *   pstr,
  *                           (C) (1) (a) "A final string of one or more unrecognized characters,"  ...
  *                                   (b) "including the terminating null byte of the input string" ...
  *                               (2) "other than a sign or a permissible letter or digit."
- **$PAGE*
+ ***$PAGE*
  *                       (2) Second, "they shall attempt to convert the subject sequence to an integer" :
  *
  *                           (A) "If the subject sequence is empty or does not have the expected form" :
@@ -3192,7 +3192,7 @@ CPU_INT32U  Str_ParseNbr_Int32U (const CPU_CHAR *   pstr,
  *                           nbr       =  0
  *                           pstr_next = "GABCDE"
  *
- **$PAGE*
+ ***$PAGE*
  *                   (f) Parse string integer overflow :
  *
  *                           pstr      = "   12345678901234567890*123456"
@@ -3293,7 +3293,7 @@ CPU_INT32S  Str_ParseNbr_Int32S (const CPU_CHAR *   pstr,
  *
  * Caller(s)   : Str_FmtNbr_Int32U(),
  *               Str_FmtNbr_Int32S().
- **$PAGE*
+ ***$PAGE*
  * Note(s)     : (1) (a) The maximum number of digits to format for 32-bit integer numbers :
  *
  *
@@ -3342,7 +3342,7 @@ CPU_INT32S  Str_ParseNbr_Int32S (const CPU_CHAR *   pstr,
  *                                   pstr     = "?????"              See Note #7b
  *
  *               (2) The number's base MUST be between 2 & 36, inclusive.
- **$PAGE*
+ ***$PAGE*
  *               (3) Leading character option prepends leading characters prior to the first non-zero digit.
  *
  *                   (a) (1) Leading character MUST be a printable ASCII character.
@@ -3422,7 +3422,7 @@ CPU_INT32S  Str_ParseNbr_Int32S (const CPU_CHAR *   pstr,
  *                       (4) ... then one digit of '0' value is formatted.
  *
  *                           This is NOT a leading character; but a single integer digit of '0' value.
- **$PAGE*
+ ***$PAGE*
  *               (4) (a) NULL-character terminate option DISABLED prevents overwriting previous character
  *                       array formatting.
  *
@@ -3613,7 +3613,7 @@ static CPU_CHAR  *Str_FmtNbr_Int32 (CPU_INT32U  nbr,
                        (((lead_char_0  == DEF_NO )  &&          /* ... lead char NOT a '0' dig                  ...     */
                          (nbr_neg_fmtd == DEF_NO )) ||          /* ... but neg sign NOT yet fmt'd  OR           ...     */
                         ((lead_char_0  != DEF_NO )  &&          /* ... lead char is  a '0' dig                  ...     */
-                       (i == (nbr_dig_fmtd - 1u))))) {          /* ... & on most-sig dig to fmt,                ...     */
+                         (i == (nbr_dig_fmtd - 1u))))) {        /* ... & on most-sig dig to fmt,                ...     */
 
                 *pstr_fmt--   = '-';                            /* ... prepend neg sign (see Note #3b);         ...     */
                 nbr_neg_fmtd = DEF_YES;
@@ -3723,7 +3723,7 @@ static CPU_CHAR  *Str_FmtNbr_Int32 (CPU_INT32U  nbr,
  *                                               ('nbr_base') is" 8, the '0' character "may optionally precede
  *                                               the sequence of letters and digits"; it seems reasonable to
  *                                               allow the '0' character to be optionally parsed.
- **$PAGE*
+ ***$PAGE*
  *                               (2) "A subject sequence .... may be preceded by a '+' or '-' sign."
  *
  *                                   (a) It does NOT seem reasonable to parse & convert a negative number
@@ -3775,7 +3775,7 @@ static CPU_CHAR  *Str_FmtNbr_Int32 (CPU_INT32U  nbr,
  *                           may fail if" :
  *
  *                           (A) "[EINVAL] - No conversion could be performed."
- **$PAGE*
+ ***$PAGE*
  *               (3) Return integer value & next string pointer should be used to diagnose parse success or failure :
  *
  *                   (a) Valid parse string integer :

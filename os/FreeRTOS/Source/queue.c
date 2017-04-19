@@ -342,9 +342,9 @@ QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength, const UBaseT
         if( uxItemSize == ( UBaseType_t ) 0 )
         {
             /* No RAM was allocated for the queue storage area, but PC head
-            *   cannot be set to NULL because NULL is used as a key to say the queue
-            *   is used as a mutex.  Therefore just set pcHead to point to the queue
-            *   as a benign value that is known to be within the memory map. */
+             *   cannot be set to NULL because NULL is used as a key to say the queue
+             *   is used as a mutex.  Therefore just set pcHead to point to the queue
+             *   as a benign value that is known to be within the memory map. */
             pxNewQueue->pcHead = ( int8_t * ) pxNewQueue;
         }
         else
@@ -676,9 +676,9 @@ BaseType_t xQueueGenericSend( QueueHandle_t xQueue, const void * const pvItemToQ
                         else if( xYieldRequired != pdFALSE )
                         {
                             /* This path is a special case that will only get
-                             *  executed if the task was holding multiple mutexes
-                             *  and the mutexes were given back in an order that is
-                             *  different to that in which they were taken. */
+                            *  executed if the task was holding multiple mutexes
+                            *  and the mutexes were given back in an order that is
+                            *  different to that in which they were taken. */
                             queueYIELD_IF_USING_PREEMPTION();
                         }
                         else
@@ -709,9 +709,9 @@ BaseType_t xQueueGenericSend( QueueHandle_t xQueue, const void * const pvItemToQ
                     else if( xYieldRequired != pdFALSE )
                     {
                         /* This path is a special case that will only get
-                         *  executed if the task was holding multiple mutexes and
-                         *  the mutexes were given back in an order that is
-                         *  different to that in which they were taken. */
+                        *  executed if the task was holding multiple mutexes and
+                        *  the mutexes were given back in an order that is
+                        *  different to that in which they were taken. */
                         queueYIELD_IF_USING_PREEMPTION();
                     }
                     else
@@ -822,7 +822,7 @@ BaseType_t xQueueAltGenericSend( QueueHandle_t xQueue, const void * const pvItem
         taskENTER_CRITICAL();
         {
             /* Is there room on the queue now?  To be running we must be
-             *  the highest priority task wanting to access the queue. */
+            *  the highest priority task wanting to access the queue. */
             if( pxQueue->uxMessagesWaiting < pxQueue->uxLength )
             {
                 traceQUEUE_SEND( pxQueue );
@@ -1089,10 +1089,10 @@ BaseType_t xQueueGenericSendFromISR( QueueHandle_t xQueue, const void * const pv
             traceQUEUE_SEND_FROM_ISR( pxQueue );
 
             /* Semaphores use xQueueGiveFromISR(), so pxQueue will not be a
-            *   semaphore or mutex.  That means prvCopyDataToQueue() cannot result
-            *   in a task disinheriting a priority and prvCopyDataToQueue() can be
-            *   called here even though the disinherit function does not check if
-            *   the scheduler is suspended before accessing the ready lists. */
+             *   semaphore or mutex.  That means prvCopyDataToQueue() cannot result
+             *   in a task disinheriting a priority and prvCopyDataToQueue() can be
+             *   called here even though the disinherit function does not check if
+             *   the scheduler is suspended before accessing the ready lists. */
             ( void ) prvCopyDataToQueue( pxQueue, pvItemToQueue, xCopyPosition );
 
             /* The event list is not altered if the queue is locked.  This will
@@ -1129,7 +1129,7 @@ BaseType_t xQueueGenericSendFromISR( QueueHandle_t xQueue, const void * const pv
                             if( xTaskRemoveFromEventList( &( pxQueue->xTasksWaitingToReceive ) ) != pdFALSE )
                             {
                                 /* The task waiting has a higher priority so
-                                *   record that a context switch is required. */
+                                 *   record that a context switch is required. */
                                 if( pxHigherPriorityTaskWoken != NULL )
                                 {
                                     *pxHigherPriorityTaskWoken = pdTRUE;
@@ -1290,7 +1290,7 @@ BaseType_t xQueueGiveFromISR( QueueHandle_t xQueue, BaseType_t * const pxHigherP
                             if( xTaskRemoveFromEventList( &( pxQueue->xTasksWaitingToReceive ) ) != pdFALSE )
                             {
                                 /* The task waiting has a higher priority so
-                                *   record that a context switch is required. */
+                                 *   record that a context switch is required. */
                                 if( pxHigherPriorityTaskWoken != NULL )
                                 {
                                     *pxHigherPriorityTaskWoken = pdTRUE;
@@ -2412,11 +2412,11 @@ void vQueueWaitForMessageRestricted( QueueHandle_t xQueue, TickType_t xTicksToWa
      *  section. */
 
     /* Only do anything if there are no messages in the queue.  This function
-    *   will not actually cause the task to block, just place it on a blocked
-    *   list.  It will not block until the scheduler is unlocked - at which
-    *   time a yield will be performed.  If an item is added to the queue while
-    *   the queue is locked, and the calling task blocks on the queue, then the
-    *   calling task will be immediately unblocked when the queue is unlocked. */
+     *   will not actually cause the task to block, just place it on a blocked
+     *   list.  It will not block until the scheduler is unlocked - at which
+     *   time a yield will be performed.  If an item is added to the queue while
+     *   the queue is locked, and the calling task blocks on the queue, then the
+     *   calling task will be immediately unblocked when the queue is unlocked. */
     prvLockQueue( pxQueue );
     if( pxQueue->uxMessagesWaiting == ( UBaseType_t ) 0U )
     {

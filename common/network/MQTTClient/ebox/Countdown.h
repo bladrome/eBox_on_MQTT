@@ -5,39 +5,39 @@
 
 class Countdown
 {
-	public:
-		Countdown()
-		{  
-			interval_end_ms = 0L;
-		}
+public:
+    Countdown()
+    {
+        interval_end_ms = 0L;
+    }
 
-		Countdown(int ms)
-		{
-			countdown_ms(ms);   
-		}
+    Countdown(int ms)
+    {
+        countdown_ms(ms);
+    }
 
-		bool expired()
-		{
-			return (interval_end_ms > 0L) && (millis() >= interval_end_ms);
-		}
+    bool        expired()
+    {
+        return (interval_end_ms > 0L) && (millis() >= interval_end_ms);
+    }
 
-		void countdown_ms(unsigned long ms)  
-		{
-			interval_end_ms = millis() + ms;
-		}
+    void        countdown_ms(unsigned long ms)
+    {
+        interval_end_ms = millis() + ms;
+    }
 
-		void countdown(int seconds)
-		{
-			countdown_ms((unsigned long)seconds * 1000L);
-		}
+    void        countdown(int seconds)
+    {
+        countdown_ms((unsigned long)seconds * 1000L);
+    }
 
-		int left_ms()
-		{
-			return interval_end_ms - millis();
-		}
+    int        left_ms()
+    {
+        return interval_end_ms - millis();
+    }
 
-	private:
-		uint64_t interval_end_ms; 
+private:
+    uint64_t        interval_end_ms;
 };
 
 #endif

@@ -161,7 +161,7 @@ public:
 
     // comparison (only works w/ Strings and "strings")
     operator StringIfHelperType() const { return buffer ? &String::StringIfHelper : 0; }
-    int                             compareTo(const String &s) const;
+    int        compareTo(const String &s) const;
     unsigned char                   equals(const String &s) const;
     unsigned char                   equals(const char *cstr) const;
     unsigned char operator          == (const String &rhs) const {

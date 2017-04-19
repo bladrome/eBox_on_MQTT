@@ -81,7 +81,7 @@ extern "C" {
  * and compiler.
  *
  * These settings should not be altered.
- **-----------------------------------------------------------
+ ***-----------------------------------------------------------
  */
 
 /* Type definitions. */
@@ -162,7 +162,7 @@ extern void             vPortClearInterruptMask( uint32_t ulNewMaskValue );
 #define portTASK_FUNCTION( vFunction, pvParameters )    void vFunction( void *pvParameters )
 
 /* Prototype of the FreeRTOS tick handler.  This must be installed as the
- *  handler for whichever peripheral is used to generate the RTOS tick. */
+*  handler for whichever peripheral is used to generate the RTOS tick. */
 void        FreeRTOS_Tick_Handler( void );
 
 /* Any task that uses the floating point unit MUST call vPortTaskUsesFPU()

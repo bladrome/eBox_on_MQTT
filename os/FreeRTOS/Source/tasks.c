@@ -2420,11 +2420,11 @@ void vTaskPlaceOnEventListRestricted( List_t * const pxEventList, const TickType
     }
 
     /* If vTaskSuspend() is available then the suspended task list is also
-     *  available and a task that is blocking indefinitely can enter the
-     *  suspended state (it is not really suspended as it will re-enter the
-     *  Ready state when the event it is waiting indefinitely for occurs).
-     *  Blocking indefinitely is useful when using tickless idle mode as when
-     *  all tasks are blocked indefinitely all timers can be turned off. */
+    *  available and a task that is blocking indefinitely can enter the
+    *  suspended state (it is not really suspended as it will re-enter the
+    *  Ready state when the event it is waiting indefinitely for occurs).
+    *  Blocking indefinitely is useful when using tickless idle mode as when
+    *  all tasks are blocked indefinitely all timers can be turned off. */
  #if ( INCLUDE_vTaskSuspend == 1 )
     {
         if( xWaitIndefinitely == pdTRUE )
@@ -3316,7 +3316,7 @@ static void prvDeleteTCB( TCB_t *pxTCB )
     portCLEAN_UP_TCB( pxTCB );
 
     /* Free up the memory allocated by the scheduler for the task.  It is up
-     *  to the task to free any memory allocated at the application level. */
+    *  to the task to free any memory allocated at the application level. */
  #if ( configUSE_NEWLIB_REENTRANT == 1 )
     {
         _reclaim_reent( &( pxTCB->xNewLib_reent ) );
@@ -3805,8 +3805,8 @@ void vTaskGetRunTimeStats( char *pcWriteBuffer )
             for( x = 0; x < uxArraySize; x++ )
             {
                 /* What percentage of the total run time has the task used?
-                 *  This will always be rounded down to the nearest integer.
-                 *  ulTotalRunTimeDiv100 has already been divided by 100. */
+                *  This will always be rounded down to the nearest integer.
+                *  ulTotalRunTimeDiv100 has already been divided by 100. */
                 ulStatsAsPercentage = pxTaskStatusArray[ x ].ulRunTimeCounter / ulTotalTime;
 
                 /* Write the task name to the string, padding with

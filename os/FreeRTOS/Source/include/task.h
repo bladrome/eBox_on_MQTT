@@ -264,7 +264,7 @@ typedef enum
 
 /**
  * task. h
- **<pre>
+ ***<pre>
  *  BaseType_t xTaskCreate(
  *                                                         TaskFunction_t pvTaskCode,
  *                                                         const char * const pcName,
@@ -346,7 +346,7 @@ typedef enum
 
 /**
  * task. h
- **<pre>
+ ***<pre>
  *  BaseType_t xTaskCreateRestricted( TaskParameters_t *pxTaskDefinition, TaskHandle_t *pxCreatedTask );</pre>
  *
  * xTaskCreateRestricted() should only be used in systems that include an MPU
@@ -415,7 +415,7 @@ typedef enum
 
 /**
  * task. h
- **<pre>
+ ***<pre>
  *  void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions );</pre>
  *
  * Memory regions are assigned to a restricted task when the task is created by
@@ -1239,7 +1239,7 @@ TaskHandle_t        xTaskGetIdleTaskHandle( void ) PRIVILEGED_FUNCTION;
  *       uint32_t ulTotalRunTime, ulStatsAsPercentage;
  *
  *               // Make sure the write buffer does not contain a string.
- **pcWriteBuffer = 0x00;
+ ***pcWriteBuffer = 0x00;
  *
  *               // Take a snapshot of the number of tasks in case it changes while this
  *               // function is executing.

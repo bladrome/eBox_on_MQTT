@@ -328,7 +328,7 @@ CPU_CORE_EXT CPU_TS_TMR         CPU_IntDisMeasMax_cnts;         /* ... non-reset
  *                           (A) Note that 'err_rtn_val' in the return statement MUST NOT be enclosed in
  *                               parentheses.  This allows CPU_SW_EXCEPTION() to return from functions that
  *                               return 'void', i.e. NO return type or value (see also Note #2b2A).
- **$PAGE*
+ ***$PAGE*
  *                       (2) In order for CPU_SW_EXCEPTION() to return from functions with various return
  *                           types/values, each caller function MUST pass an appropriate error return type
  *                           & value to CPU_SW_EXCEPTION().

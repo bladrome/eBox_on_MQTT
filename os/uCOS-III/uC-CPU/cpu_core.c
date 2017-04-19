@@ -927,7 +927,7 @@ void  CPU_IntDisMeasStart (void)
  *                                               interrupts              during critical section exit
  *                                              enabled ovrhd
  *
- **$PAGE*
+ ***$PAGE*
  *
  *                       (2) When interrupts disabled time measurements are enabled :
  *
@@ -997,7 +997,7 @@ void  CPU_IntDisMeasStart (void)
  *                                                 ovrhd                 stop time (in timer counts)
  *
  *
- **$PAGE*
+ ***$PAGE*
  *                   (b) (1) (A) In order to correctly handle unsigned subtraction overflows of start times
  *                               from stop times, CPU timestamp timer count values MUST be returned via
  *                               word-size-configurable 'CPU_TS_TMR' data type.
@@ -1102,7 +1102,7 @@ void  CPU_IntDisMeasStop (void)
  *                              0    0    0         0    0    0    0    1           15
  *                              0    0    0         0    0    0    0    0           16
  *
- **$PAGE*
+ ***$PAGE*
  *                       (3) For 32-bit values :
  *
  *                             b31  b30  b29  ...  b04  b03  b02  b01  b00    # Leading Zeros
@@ -1603,7 +1603,7 @@ CPU_DATA  CPU_CntLeadZeros64 (CPU_INT64U val)
  *                              1    0    0    0    0         0    0    0           63
  *                              0    0    0    0    0         0    0    0           64
  *
- **$PAGE*
+ ***$PAGE*
  *               (2) For non-zero values, the returned number of contiguous, least-significant, trailing
  *                   zero bits is also equivalent to the bit position of the least-significant set bit.
  *
@@ -2304,7 +2304,7 @@ static void  CPU_IntDisMeasInit (void)
  *                       performed asynchronously in API functions.
  *
  *                       See also 'CPU_IntDisMeasStop()  Note #1b2'.
- **$PAGE*
+ ***$PAGE*
  *                   (c) The amount of time interrupts are disabled is calculated by either of the
  *                       following equations :
  *

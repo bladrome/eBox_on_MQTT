@@ -207,7 +207,7 @@ EventBits_t xEventGroupSync( EventGroupHandle_t xEventGroup, const EventBits_t u
             else
             {
                 /* The rendezvous bits were not set, but no block time was
-                 *  specified - just return the current event bit value. */
+                *  specified - just return the current event bit value. */
                 uxReturn = pxEventBits->uxEventBits;
             }
         }
@@ -226,9 +226,9 @@ EventBits_t xEventGroupSync( EventGroupHandle_t xEventGroup, const EventBits_t u
         }
 
         /* The task blocked to wait for its required bits to be set - at this
-         *  point either the required bits were set or the block time expired.  If
-         *  the required bits were set they will have been stored in the task's
-         *  event list item, and they should now be retrieved then cleared. */
+        *  point either the required bits were set or the block time expired.  If
+        *  the required bits were set they will have been stored in the task's
+        *  event list item, and they should now be retrieved then cleared. */
         uxReturn = uxTaskResetEventItemValue();
 
         if( ( uxReturn & eventUNBLOCKED_DUE_TO_BIT_SET ) == ( EventBits_t ) 0 )
@@ -370,9 +370,9 @@ EventBits_t xEventGroupWaitBits( EventGroupHandle_t xEventGroup, const EventBits
         }
 
         /* The task blocked to wait for its required bits to be set - at this
-         *  point either the required bits were set or the block time expired.  If
-         *  the required bits were set they will have been stored in the task's
-         *  event list item, and they should now be retrieved then cleared. */
+        *  point either the required bits were set or the block time expired.  If
+        *  the required bits were set they will have been stored in the task's
+        *  event list item, and they should now be retrieved then cleared. */
         uxReturn = uxTaskResetEventItemValue();
 
         if( ( uxReturn & eventUNBLOCKED_DUE_TO_BIT_SET ) == ( EventBits_t ) 0 )

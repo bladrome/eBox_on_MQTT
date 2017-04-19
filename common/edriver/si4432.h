@@ -58,7 +58,7 @@ private:
     Gpio *                  irq;
     Gpio *                  ce;
     Gpio *                  cs;
-    Spi *      spi;
+    Spi *                   spi;
 
 
     void        reset(void);

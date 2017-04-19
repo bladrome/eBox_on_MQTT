@@ -97,7 +97,7 @@ typedef struct
                               *    This parameter can be a value of @ref I2S_Data_Format */
 
     uint16_t I2S_MCLKOutput; /*!< Specifies whether the I2S MCLK output is enabled or not.
-                              *    This parameter can be a value of @ref I2S_MCLK_Output */
+                             *    This parameter can be a value of @ref I2S_MCLK_Output */
 
     uint32_t I2S_AudioFreq;  /*!< Specifies the frequency selected for the I2S communication.
                               *    This parameter can be a value of @ref I2S_Audio_Frequency */

@@ -375,8 +375,8 @@ typedef enum IRQn
     DMA2_Channel3_IRQn          = 58,   /*!< DMA2 Channel 3 global Interrupt                      */
     DMA2_Channel4_5_IRQn        = 59,   /*!< DMA2 Channel 4 and Channel 5 global Interrupt        */
     DMA2_Channel5_IRQn          = 60    /*!< DMA2 Channel 5 global Interrupt (DMA2 Channel 5 is
-                                        *     mapped at position 60 only if the MISC_REMAP bit in
-                                        *     the AFIO_MAPR2 register is set)                      */
+                                         *     mapped at position 60 only if the MISC_REMAP bit in
+                                         *     the AFIO_MAPR2 register is set)                      */
 #endif /* STM32F10X_HD_VL */
 
 #ifdef STM32F10X_XL
@@ -7963,7 +7963,7 @@ typedef struct
 /* Bit definition for Ethernet MAC Remote Wake-UpFrame Filter Register */
  #define ETH_MACRWUFFR_D   ((uint32_t)0xFFFFFFFF) /* Wake-up frame filter register data */
 /* Eight sequential Writes to this address (offset 0x28) will write all Wake-UpFrame Filter Registers.
-*   Eight sequential Reads from this address (offset 0x28) will read all Wake-UpFrame Filter Registers. */
+ *   Eight sequential Reads from this address (offset 0x28) will read all Wake-UpFrame Filter Registers. */
 /* Wake-UpFrame Filter Reg0 : Filter 0 Byte Mask
  *  Wake-UpFrame Filter Reg1 : Filter 1 Byte Mask
  *  Wake-UpFrame Filter Reg2 : Filter 2 Byte Mask

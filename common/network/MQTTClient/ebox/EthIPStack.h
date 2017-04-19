@@ -6,16 +6,16 @@
 #include "dns.h"
 #include "w5500.h"
 
-class EthIPStack 
+class EthIPStack
 {
-public:    
+public:
     EthIPStack()
     {
-		tcp.begin(SOCKET7, 3000);
+        tcp.begin(SOCKET7, 3000);
     }
-	
-	int dnsquery(char* name)
-	{
+
+    int        dnsquery(char* name)
+    {
 //		int ret;
 //		ret = ddns.query(name);
 //		if ( ret == 1 )
@@ -25,62 +25,62 @@ public:
 //			hostip[2] = ddns.domain_ip[2];
 //			hostip[3] = ddns.domain_ip[3];
 //		}
-//		
+//
 //		return ret;
-		hostip[0] = 198;
-		hostip[1] = 41;
-		hostip[2] = 30;
-		hostip[3] = 241;
-		return 0;
-	}
-    
-    int connect(char* hostname, int port)
-    {
-		dnsquery(hostname);
-		return tcp.connect(hostip, port);
+        hostip[0] = 198;
+        hostip[1] = 41;
+        hostip[2] = 30;
+        hostip[3] = 241;
+        return 0;
     }
 
-    int connect(u8 hostname[], int port)
+    int        connect(char* hostname, int port)
     {
-		//uart1.printf("Calling conncect hostname\n");
-		return tcp.connect(hostname, port);
+        dnsquery(hostname);
+        return tcp.connect(hostip, port);
     }
 
-    int read(unsigned char* buffer, int len, int timeout = 1000)
+    int        connect(u8 hostname[], int port)
     {
-        int interval = 10;  // all times are in milliseconds
-		int total = 0, rc = -1;
+        //uart1.printf("Calling conncect hostname\n");
+        return tcp.connect(hostname, port);
+    }
 
-		if (timeout < 30)
-			interval = 2;
-		while (tcp.available() < len && total < timeout)
-		{
-			delay_ms(interval);
-			total += interval;
-		}
-		if (tcp.available() >= len)
-			rc = tcp.recv((uint8_t*)buffer, len);
-		//uart1.printf("Calling read \n");
-		return rc;
-    }
-    
-    int write(unsigned char* buffer, int len, int timeout = 1000)
+    int        read(unsigned char* buffer, int len, int timeout = 1000)
     {
-        //tcp.setTimeout(timeout);  
-		//uart1.printf("Calling write \n");
-		return tcp.send((uint8_t*)buffer, len);
+        int         interval = 10; // all times are in milliseconds
+        int         total = 0, rc = -1;
+
+        if (timeout < 30)
+            interval = 2;
+        while (tcp.available() < len && total < timeout)
+        {
+            delay_ms(interval);
+            total += interval;
+        }
+        if (tcp.available() >= len)
+            rc = tcp.recv((uint8_t*)buffer, len);
+        //uart1.printf("Calling read \n");
+        return rc;
     }
-    
-    int disconnect()
+
+    int        write(unsigned char* buffer, int len, int timeout = 1000)
+    {
+        //tcp.setTimeout(timeout);
+        //uart1.printf("Calling write \n");
+        return tcp.send((uint8_t*)buffer, len);
+    }
+
+    int        disconnect()
     {
         tcp.stop();
         return 0;
     }
 
 private:
-    TCPCLIENT tcp;
-	DNS ddns;
-	u8 hostip[4];
+    TCPCLIENT           tcp;
+    DNS                 ddns;
+    u8                  hostip[4];
 };
 
 #endif

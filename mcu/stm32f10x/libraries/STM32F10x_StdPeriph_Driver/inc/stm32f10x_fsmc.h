@@ -92,7 +92,7 @@ typedef struct
 typedef struct
 {
     uint32_t FSMC_Bank;              /*!< Specifies the NOR/SRAM memory bank that will be used.
-                                     *     This parameter can be a value of @ref FSMC_NORSRAM_Bank */
+                                      *     This parameter can be a value of @ref FSMC_NORSRAM_Bank */
 
     uint32_t FSMC_DataAddressMux;    /*!< Specifies whether the address and data values are
                                       *    multiplexed on the databus or not.
@@ -114,8 +114,8 @@ typedef struct
                                        *   This parameter can be a value of @ref FSMC_AsynchronousWait */
 
     uint32_t FSMC_WaitSignalPolarity; /*!< Specifies the wait signal polarity, valid only when accessing
-                                      *     the Flash memory in burst mode.
-                                      *     This parameter can be a value of @ref FSMC_Wait_Signal_Polarity */
+                                       *     the Flash memory in burst mode.
+                                       *     This parameter can be a value of @ref FSMC_Wait_Signal_Polarity */
 
     uint32_t FSMC_WrapMode;          /*!< Enables or disables the Wrapped burst access mode for Flash
                                       *    memory, valid only when accessing Flash memories in burst mode.
@@ -157,17 +157,17 @@ typedef struct
                                  *    This parameter can be a value between 0 and 0xFF.*/
 
     uint32_t FSMC_WaitSetupTime; /*!< Defines the minimum number of HCLK cycles to assert the
-                                  *    command for NAND-Flash read or write access to
-                                  *    common/Attribute or I/O memory space (depending on the
-                                  *    memory space timing to be configured).
-                                  *    This parameter can be a number between 0x00 and 0xFF */
+                                 *    command for NAND-Flash read or write access to
+                                 *    common/Attribute or I/O memory space (depending on the
+                                 *    memory space timing to be configured).
+                                 *    This parameter can be a number between 0x00 and 0xFF */
 
     uint32_t FSMC_HoldSetupTime; /*!< Defines the number of HCLK clock cycles to hold address
-                                  *    (and data for write access) after the command deassertion
-                                  *    for NAND-Flash read or write access to common/Attribute
-                                  *    or I/O memory space (depending on the memory space timing
-                                  *    to be configured).
-                                  *    This parameter can be a number between 0x00 and 0xFF */
+                                 *    (and data for write access) after the command deassertion
+                                 *    for NAND-Flash read or write access to common/Attribute
+                                 *    or I/O memory space (depending on the memory space timing
+                                 *    to be configured).
+                                 *    This parameter can be a number between 0x00 and 0xFF */
 
     uint32_t FSMC_HiZSetupTime; /*!< Defines the number of HCLK clock cycles during which the
                                  *    databus is kept in HiZ after the start of a NAND-Flash

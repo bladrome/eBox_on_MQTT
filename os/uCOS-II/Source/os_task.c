@@ -234,7 +234,7 @@ INT8U  OSTaskCreate (void (*task)(void *p_arg), void *p_arg, OS_STK *ptos, INT8U
     }
     if (OSTCBPrioTbl[prio] == (OS_TCB *)0) { /* Make sure task doesn't already exist at this priority  */
         OSTCBPrioTbl[prio] = OS_TCB_RESERVED; /* Reserve the priority to prevent others from doing ...  */
-                                             /* ... the same thing until task is created.              */
+                                              /* ... the same thing until task is created.              */
         OS_EXIT_CRITICAL();
         psp = OSTaskStkInit(task, p_arg, ptos, 0);              /* Initialize the task's stack         */
         err = OS_TCBInit(prio, psp, (OS_STK *)0, 0, 0, (void *)0, 0);
@@ -355,7 +355,7 @@ INT8U  OSTaskCreateExt (void    (*task)(void *p_arg),
     }
     if (OSTCBPrioTbl[prio] == (OS_TCB *)0) { /* Make sure task doesn't already exist at this priority  */
         OSTCBPrioTbl[prio] = OS_TCB_RESERVED; /* Reserve the priority to prevent others from doing ...  */
-                                             /* ... the same thing until task is created.              */
+                                              /* ... the same thing until task is created.              */
         OS_EXIT_CRITICAL();
 
  #if (OS_TASK_STAT_STK_CHK_EN > 0)

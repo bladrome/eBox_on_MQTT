@@ -61,10 +61,10 @@ typedef struct
                                     *    or DMA_MemoryDataSize members depending in the transfer direction. */
 
     uint32_t DMA_PeripheralInc;    /*!< Specifies whether the Peripheral address register is incremented or not.
-                                    *    This parameter can be a value of @ref DMA_peripheral_incremented_mode */
+                                   *    This parameter can be a value of @ref DMA_peripheral_incremented_mode */
 
     uint32_t DMA_MemoryInc;        /*!< Specifies whether the memory address register is incremented or not.
-                                    *    This parameter can be a value of @ref DMA_memory_incremented_mode */
+                                   *    This parameter can be a value of @ref DMA_memory_incremented_mode */
 
     uint32_t DMA_PeripheralDataSize; /*!< Specifies the Peripheral data width.
                                       *    This parameter can be a value of @ref DMA_peripheral_data_size */
@@ -78,7 +78,7 @@ typedef struct
                                     *          data transfer is configured on the selected Channel */
 
     uint32_t DMA_Priority;         /*!< Specifies the software priority for the DMAy Channelx.
-                                   *     This parameter can be a value of @ref DMA_priority_level */
+                                    *     This parameter can be a value of @ref DMA_priority_level */
 
     uint32_t DMA_M2M;              /*!< Specifies if the DMAy Channelx will be used in memory-to-memory transfer.
                                     *    This parameter can be a value of @ref DMA_memory_to_memory */

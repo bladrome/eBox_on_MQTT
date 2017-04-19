@@ -45,7 +45,7 @@ public:
 
 public:
     W5500(Gpio *cs = &PC13, Gpio *rst = &PC14, Gpio *int_pin = &PC15, Spi *spi = &spi2);
-  
+
     void            begin(uint8_t dev_num,uint8_t *mac);
     void            begin(uint8_t dev_num, uint8_t *mac, uint8_t *ip, uint8_t *subnet, uint8_t *gateway, uint8_t *dns);
     void            reset();

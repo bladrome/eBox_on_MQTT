@@ -807,7 +807,7 @@ typedef enum lib_err {
  #define  DEF_BIT_SET(val, mask)                 ((sizeof(val) == CPU_WORD_SIZE_08) ? DEF_BIT_SET_08(val, mask) :     \
                                                   ((sizeof(val) == CPU_WORD_SIZE_16) ? DEF_BIT_SET_16(val, mask) :     \
                                                    ((sizeof(val) == CPU_WORD_SIZE_32) ? DEF_BIT_SET_32(val, mask) :     \
-                                                  ((sizeof(val) == CPU_WORD_SIZE_64) ? DEF_BIT_SET_64(val, mask) : 0))))
+                                                    ((sizeof(val) == CPU_WORD_SIZE_64) ? DEF_BIT_SET_64(val, mask) : 0))))
 
 #else
 
@@ -886,7 +886,7 @@ typedef enum lib_err {
  #define  DEF_BIT_CLR(val, mask)                 ((sizeof(val) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08(val, mask) :     \
                                                   ((sizeof(val) == CPU_WORD_SIZE_16) ? DEF_BIT_CLR_16(val, mask) :     \
                                                    ((sizeof(val) == CPU_WORD_SIZE_32) ? DEF_BIT_CLR_32(val, mask) :     \
-                                                  ((sizeof(val) == CPU_WORD_SIZE_64) ? DEF_BIT_CLR_64(val, mask) : 0))))
+                                                    ((sizeof(val) == CPU_WORD_SIZE_64) ? DEF_BIT_CLR_64(val, mask) : 0))))
 
 #else
 
@@ -1201,7 +1201,7 @@ typedef enum lib_err {
  #define  DEF_GET_U_MAX_VAL(obj)                 ((sizeof(obj) == CPU_WORD_SIZE_08) ? DEF_INT_08U_MAX_VAL :     \
                                                   ((sizeof(obj) == CPU_WORD_SIZE_16) ? DEF_INT_16U_MAX_VAL :     \
                                                    ((sizeof(obj) == CPU_WORD_SIZE_32) ? DEF_INT_32U_MAX_VAL :     \
-                                                  ((sizeof(obj) == CPU_WORD_SIZE_64) ? DEF_INT_64U_MAX_VAL : 0))))
+                                                    ((sizeof(obj) == CPU_WORD_SIZE_64) ? DEF_INT_64U_MAX_VAL : 0))))
 
 #else
 

@@ -1148,7 +1148,7 @@ void  Mem_PoolClr (MEM_POOL *   pmem_pool,
  *         v                              |     |
  *        ---                             -------
  *
- **$PAGE*
+ ***$PAGE*
  * Argument(s) : pmem_pool           Pointer to a memory pool structure to create (see Note #3).
  *
  *               pmem_base_addr      Memory pool base address :
@@ -2273,7 +2273,7 @@ static CPU_BOOLEAN  Mem_PoolBlkIsValidAddr (MEM_POOL *  pmem_pool,
  * Return(s)   : Total size of memory segment used to allocate the number of blocks, if NO error(s).
  *
  *               0,                                                                  otherwise.
- **$PAGE*
+ ***$PAGE*
  * Caller(s)   : Mem_HeapAlloc(),
  *               Mem_PoolCreate().
  *

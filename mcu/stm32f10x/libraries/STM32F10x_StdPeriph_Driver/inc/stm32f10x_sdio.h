@@ -83,8 +83,8 @@ typedef struct
                             *    This parameter can be a value of @ref SDIO_Wait_Interrupt_State */
 
     uint32_t SDIO_CPSM;    /*!< Specifies whether SDIO Command path state machine (CPSM)
-                            *    is enabled or disabled.
-                            *    This parameter can be a value of @ref SDIO_CPSM_State */
+                           *    is enabled or disabled.
+                           *    This parameter can be a value of @ref SDIO_CPSM_State */
 } SDIO_CmdInitTypeDef;
 
 typedef struct
@@ -97,11 +97,11 @@ typedef struct
                                   *    This parameter can be a value of @ref SDIO_Data_Block_Size */
 
     uint32_t SDIO_TransferDir;  /*!< Specifies the data transfer direction, whether the transfer
-                                *     is a read or write.
-                                *     This parameter can be a value of @ref SDIO_Transfer_Direction */
+                                 *     is a read or write.
+                                 *     This parameter can be a value of @ref SDIO_Transfer_Direction */
 
     uint32_t SDIO_TransferMode; /*!< Specifies whether data transfer is in stream or block mode.
-                                 *    This parameter can be a value of @ref SDIO_Transfer_Type */
+                                *    This parameter can be a value of @ref SDIO_Transfer_Type */
 
     uint32_t SDIO_DPSM;         /*!< Specifies whether SDIO Data path state machine (DPSM)
                                  *    is enabled or disabled.
