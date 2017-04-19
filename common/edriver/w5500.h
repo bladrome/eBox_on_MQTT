@@ -125,7 +125,7 @@ public:
         ex.begin();
         ex.attach_interrupt(callbackFun);
         ex.interrupt(ENABLE);
-    
+    }
 private:
     Gpio *                  cs;
     Gpio *                  rst_pin;

@@ -6,19 +6,11 @@
 #include "dns.h"
 #include "w5500.h"
 
-u8 mac[6] = {0x00, 0x08, 0xdc, 0x11, 0x11, 0x11};
-u8 ip[4] = {192, 168, 1, 119};
-u8 sub[4] = {255, 255, 255, 0};
-u8 gw[4] = {192, 168, 1, 1};
-u8 dns[4] = {192, 168, 1, 1};
-extern W5500 w5500(&PC13, &PC14, &PC15, &spi2);
-
 class EthIPStack 
 {
 public:    
     EthIPStack()
     {
-		
 		tcp.begin(SOCKET7, 3000);
     }
 	
@@ -48,16 +40,13 @@ public:
 		return tcp.connect(hostip, port);
     }
 
-    int connect(uint32_t hostname, int port)
+    int connect(u8 hostname[], int port)
     {
-		hostip[0] = (hostname & 0xFF000000) >> 3; 
-		hostip[1] = (hostname & 0x00FF0000) >> 2;
-		hostip[2] = (hostname & 0x0000FF00) >> 1;
-		hostip[3] = (hostname & 0x000000FF);
-        return tcp.connect(hostip, port);
+		//uart1.printf("Calling conncect hostname\n");
+		return tcp.connect(hostname, port);
     }
 
-    int read(unsigned char* buffer, int len, int timeout)
+    int read(unsigned char* buffer, int len, int timeout = 500)
     {
         int interval = 10;  // all times are in milliseconds
 		int total = 0, rc = -1;
@@ -66,17 +55,19 @@ public:
 			interval = 2;
 		while (tcp.available() < len && total < timeout)
 		{
-			delay_us(interval);
+			delay_ms(interval);
 			total += interval;
 		}
 		if (tcp.available() >= len)
 			rc = tcp.recv((uint8_t*)buffer, len);
+		//uart1.printf("Calling read \n");
 		return rc;
     }
     
-    int write(unsigned char* buffer, int len, int timeout)
+    int write(unsigned char* buffer, int len, int timeout = 500)
     {
         //tcp.setTimeout(timeout);  
+		//uart1.printf("Calling write \n");
 		return tcp.send((uint8_t*)buffer, len);
     }
     
@@ -87,7 +78,6 @@ public:
     }
 
 private:
-
     TCPCLIENT tcp;
 	DNS ddns;
 	u8 hostip[4];
