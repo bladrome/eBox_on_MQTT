@@ -36,6 +36,8 @@
  #define MQTTCLIENT_QOS2 1
 #endif
 
+//#define MQTT_DEBUG 1
+
 namespace MQTT
 {
 
