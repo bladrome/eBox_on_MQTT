@@ -82,7 +82,7 @@ extern "C" {
  * given hardware and compiler.
  *
  * These settings should not be altered.
- ****-----------------------------------------------------------
+ ********-----------------------------------------------------------
  */
 
 /* Type definitions. */

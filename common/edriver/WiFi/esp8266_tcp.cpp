@@ -123,7 +123,6 @@ uint16_t WIFI_TCP::read(uint8_t *buf)
 uint16_t WIFI_TCP::read_until(uint8_t *buf,char ch)
 {
     int len = 0;
-    char c;
     while(1) {
         if(available()) {
             buf[len] = wifi->read_one();
@@ -200,8 +199,6 @@ uint16_t WIFI_TCP::read(uint8_t *mux_id, uint8_t *buf)
  */
 uint8_t WIFI_TCP::read_onebyte(void)
 {
-    return 0;
-    //    return wifi->net_buf.read();
-
+    return wifi->read_one();
 }
 

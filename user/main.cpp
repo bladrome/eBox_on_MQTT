@@ -1,127 +1,83 @@
+/*
+ *  file   : *.cpp
+ *  author : shentq
+ *  version: V1.0
+ *  date   : 2015/7/5
+ *
+ *  Copyright 2015 shentq. All Rights Reserved.
+ */
+
+//STM32 RUN IN eBox
 #include "ebox.h"
+#include "esp8266.h"
+#include "esp8266_tcp.h"
+#include "WifiIPStack.h"
+#include "MQTTClient.h"
 
-#include <EthIPStack.h>
-#include <Countdown.h>
-#include <MQTTClient.h>
 
-u8 mac[6] = {0x00, 0x08, 0xdc, 0x11, 0x11, 0x11};
-u8 lip[4] = {192, 168, 1, 119};
-u8 sub[4] = {255, 255, 255, 0};
-u8 gw[4] = {192, 168, 1, 1};
-u8 dns[4] = {192, 168, 1, 1};
-W5500 w5500;
-EthIPStack ipstack;
-MQTT::Client<EthIPStack, Countdown> client = MQTT::Client<EthIPStack, Countdown>(ipstack);
+WIFI_TCP tcp(&wifi);
+WifiIPStack ipstack(&tcp);
 
-int arrivedcount = 0;
+char remote_ip[] = "192.168.1.197";
+uint16_t remote_port = 8080;
+uint16_t local_port = 4321;
 
-void messageArrived(MQTT::MessageData& md);
-void connect(void);
 
-const char* topic = "eBox-sample";
-//u8 rip[4] = {198,41,30,241};
-u8 rip[4] = {192,168,1,197};
+uint8_t recv_buf[1024] = {0};
+uint8_t send_buf[] = "this is a udp send test!\r\n";
+uint16_t len = 0;
+uint32_t count = 0;
 
 void setup()
 {
     ebox_init();
     uart1.begin(115200);
-    uart1.printf("MQTT Hello example\n");
-    w5500.begin(2, mac, lip, sub, gw, dns);
-    attach_eth_to_socket(&w5500);
-    connect();
+    uart1.printf("esp8266 tcp single client test\r\n");
+    uart1.printf("-------------------------------\r\n");
+
+    wifi.begin();
+    wifi.join_ap();
+
 }
 
-int main()
+int main(void)
 {
+    bool ret;
     setup();
+
+    ret = ipstack.connect(remote_ip, remote_port);
+    if(ret)
+    {
+        uart1.printf("connect ok!\r\n");
+    }
+    else
+    {
+        uart1.printf("connect failed!\r\n");
+
+    }
+
     while(1)
     {
-        if (!client.isConnected())
-            connect();
+        len = ipstack.read((char *)recv_buf,13);
+        if(len)
+        {
+            uart1.printf((const char*)recv_buf);
+        }
+//        if(count == 0)
+        {
+            // ret = ipstack.write((char *)send_buf, sizeof(send_buf));
+            ret = ipstack.write((char *)"send string test1234567890", 26);
+            if(ret)
+                uart1.printf("send ok!\r\n");
+        }
+//        count++;
+//        count %= 500000;
 
-        MQTT::Message message;
-
-        arrivedcount = 0;
-
-        // Send and receive QoS 0 message
-        char* buf = "Hello, eBox\n";
-        uart1.printf("Hello World! QoS 0 message\n");
-        message.qos = MQTT::QOS0;
-        message.retained = false;
-        message.dup = false;
-        message.payload = (void*)buf;
-        message.payloadlen = strlen(buf) + 1;
-        int rc = client.publish(topic, message);
-        if (rc != 0 )
-            uart1.printf("Error %d from sending QoS 0 message\n", rc);
-        else while (arrivedcount == 0)
-                client.yield(500);
-
-        // Send and receive QoS 1 message
-        uart1.printf("Hello World!  QoS 1 message\n");
-        message.qos = MQTT::QOS1;
-        message.payloadlen = strlen(buf) + 1;
-        rc = client.publish(topic, message);
-        if (rc != 0 )
-            uart1.printf("Error %d from sending QoS 1 message\n", rc);
-        else while (arrivedcount == 1)
-                client.yield(500);
-
-        // Send and receive QoS 2 message
-        uart1.printf("Hello World!  QoS 2 message\n");
-        message.qos = MQTT::QOS2;
-        message.payloadlen = strlen(buf) + 1;
-        rc = client.publish(topic, message);
-        if (rc != 0 )
-            uart1.printf("Error %d from sending QoS 2 message\n", rc);
-        else while (arrivedcount == 2)
-                client.yield(500);
-
-        delay_ms(1000);
     }
 
-    return 0;
-}
-
-void connect()
-{
-    char hostname[] = "iot.eclipse.org";
-    int port = 1883;
-    uart1.printf("Connecting to %s:%d\n", hostname, port);
-    int rc = ipstack.connect(hostname, port);
-    if (rc != 1)
-    {
-        uart1.printf("rc from TCP connect is %d\n", rc);
-    }
-
-    uart1.printf("MQTT connecting\n");
-    MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
-    data.MQTTVersion = 3;
-    data.clientID.cstring = (char*)"eBox-sample";
-    rc = client.connect(data);
-    if (rc != 0)
-    {
-        uart1.printf("rc from MQTT connect is %d\n", rc);
-    }
-    uart1.printf("MQTT connected\n");
-
-    rc = client.subscribe(topic, MQTT::QOS2, messageArrived);
-    if (rc != 0)
-    {
-        uart1.printf("rc from MQTT subscribe is %d\n", rc);
-    }
-    uart1.printf("MQTT subscribed\n");
 }
 
 
-void messageArrived(MQTT::MessageData& md)
-{
-    MQTT::Message &message = md.message;
-    uart1.printf("Message %d arrived: qos %d, retained %d, dup %d, packetid %d\n",
-                 ++arrivedcount, message.qos, message.retained, message.dup, message.id);
-    uart1.printf("Payload %s\n", (char*)message.payload);
-}
 
 
 

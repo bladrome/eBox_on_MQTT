@@ -24,8 +24,8 @@
 #include <stdlib.h>
 
 
-char ssid[] = "DVmaster";
-char password[] = "dvmaster456";
+char ssid[] = "LION";
+char password[] = "zijicaia";
 
 
 #if 1

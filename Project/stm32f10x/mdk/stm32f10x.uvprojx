@@ -983,6 +983,26 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>wifi</GroupName>
+          <Files>
+            <File>
+              <FileName>ESP8266.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\common\edriver\WiFi\ESP8266.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>esp8266_tcp.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\common\edriver\WiFi\esp8266_tcp.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>esp8266_udp.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\common\edriver\WiFi\esp8266_udp.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>

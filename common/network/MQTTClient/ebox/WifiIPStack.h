@@ -9,52 +9,49 @@
 class WifiIPStack
 {
 public:
-    WifiIPStack()
+    WifiIPStack(WIFI_TCP* ptcp)
     {
-        wifi.begin(&PA4, &uart2, 115200);
-        wifi.join_ap();
-        tcp.begin();
+        tcp = ptcp;
+        tcp->begin();
     }
 
     int        connect(char* hostname, int port)
     {
-        return tcp.connect(hostname, port, 7200);
+        return tcp->connect(hostname, port, 7200);
     }
 
 //    int connect(uint32_t hostname, int port)
 //    {
-//       return tcp.connect(hostname, port, 7200);
+//       return tcp->connect(hostname, port, 7200);
 //    }
 
-    int        read(char* buffer, int len, int timeout)
+    int        read(char* buffer, int len, int timeout = 1000)
     {
         //set timeout
-        for(int i = 0; i < len; ++i)
-        {
-            if( tcp.available())
-                buffer[i] = tcp.read_onebyte();
-            else
-                return i;
-        }
-
-        return len;
+        if( tcp->available())
+            for(int i = 0; i < len; ++i)
+            {
+                if( tcp->available() > 0 )
+                    buffer[i] = tcp->read_onebyte();
+                else
+                    return i;
+            }
+        return 0;
     }
 
-    int        write(char* buffer, int len, int timeout)
+    int        write(char* buffer, int len, int timeout = 1000)
     {
         //set timeout
-        return tcp.send((uint8_t*)buffer, len);
+        return tcp->send((uint8_t*)buffer, len);
     }
 
     int        disconnect()
     {
-        return tcp.disconnect();
+        return tcp->disconnect();
     }
 
 private:
-
-    WIFI_TCP        tcp;
-
+    WIFI_TCP *      tcp;
 
 };
 

@@ -72,7 +72,7 @@ class ESP8266
 
 public:
     /////³õÊ¼»¯º¯Êý///////////////////////////////////////////////////////////////////////
-    bool        begin(Gpio *rst, Uart *uart, uint32_t baud);
+    bool        begin(Gpio *rst = &PA4, Uart *uart = &uart2, uint32_t baud = 115200);
     void        hard_reset();
     bool        join_ap(char *ssid, char *pwd);
     bool        join_ap();
