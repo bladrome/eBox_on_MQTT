@@ -196,7 +196,7 @@ void connect()
         uart1.printf("MQTT subscribed eBox-sample/colorled\n");
 
     // Subscribe fan
-    rc = client.subscribe(topic_colorled, MQTT::QOS2, messageLEDcommand);
+    rc = client.subscribe(topic_colorled, MQTT::QOS2, messageFancommand);
     if (rc != 0)
         uart1.printf("rc from MQTT subscribe eBox-sample/fan is %d\n", rc);
     else
