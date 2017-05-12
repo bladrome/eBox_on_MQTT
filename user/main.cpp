@@ -22,17 +22,18 @@
 #define MQTT_SSID             "LION"
 #define MQTT_PASSWORD         "zijicaia"
 #define MQTT_SERVER_HOSTNAME  "192.168.1.197"
+//#define MQTT_SERVER_HOSTNAME  "iot.eclipse.org"
 #define MQTT_SERVER_PORT      1883
 
 // Yiled time in ms.
 const int QOS0_YILED_TIME = 100;
-const int QOS1_YILED_TIME = 1000;
-const int QOS2_YILED_TIME = 1000;
+const int QOS1_YILED_TIME = 2000;
+const int QOS2_YILED_TIME = 2000;
 
 // Packages counter.
 int arrivedcount = 0;
 int ledcolorstate = 0;
-
+const char chledcolorstate[3][8] = {"red", "green", "blue"};
 // Topics.
 const char* topic = "eBox-sample/#";
 const char* topic_fan = "eBox-sample/fan";
@@ -203,7 +204,7 @@ void connect()
         uart1.printf("MQTT subscribed eBox-sample/fan\n");
 
     // publish colorled state
-    String strledcolorstate = String(ledcolorstate);
+    String strledcolorstate = String(chledcolorstate[ledcolorstate]);
     MQTT::Message message;
     message.qos = MQTT::QOS0;
     message.retained = false;
@@ -235,9 +236,6 @@ void messageLEDcommand(MQTT::MessageData& md)
     ledcolorstate = rgbindex.toInt();
     color[ledcolorstate] = 255;
     led.color_rgb(color[0], color[1], color[2]);
-//	uart1.printf("Message %d arrived: qos %d, retained %d, dup %d, packetid %d\n",
-//                 ++arrivedcount, message.qos, message.retained, message.dup, message.id);
-//    uart1.printf("Payload %s\n", (char*)rgbindex.c_str());
 }
 
 void messageFancommand(MQTT::MessageData& md)
