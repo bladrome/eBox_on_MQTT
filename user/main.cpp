@@ -19,10 +19,10 @@
 #include "dht11.h"
 #include "colorled.h"
 
-#define MQTT_SSID "LION"
-#define MQTT_PASSWORD "zijicaia"
-#define MQTT_SERVER_HOSTNAME "192.168.1.197"
-#define MQTT_SERVER_PORT     1883
+#define MQTT_SSID             "LION"
+#define MQTT_PASSWORD         "zijicaia"
+#define MQTT_SERVER_HOSTNAME  "192.168.1.197"
+#define MQTT_SERVER_PORT      1883
 
 // Yiled time in ms.
 const int QOS0_YILED_TIME = 100;
@@ -196,7 +196,7 @@ void connect()
         uart1.printf("MQTT subscribed eBox-sample/colorled\n");
 
     // Subscribe fan
-    rc = client.subscribe(topic_colorled, MQTT::QOS2, messageFancommand);
+    rc = client.subscribe(topic_fan, MQTT::QOS2, messageFancommand);
     if (rc != 0)
         uart1.printf("rc from MQTT subscribe eBox-sample/fan is %d\n", rc);
     else
