@@ -1,46 +1,46 @@
 /**
- ******************************************************************************
- * @file    lcd_1.8.cpp
- * @author  shentq
- * @version V1.2
- * @date    2016/08/14
- * @brief
- ******************************************************************************
- * @attention
- *
- * No part of this software may be used for any commercial activities by any form
- * or means, without the prior written consent of shentq. This specification is
- * preliminary and is subject to change at any time without notice. shentq assumes
- * no responsibility for any errors contained herein.
- * <h2><center>&copy; Copyright 2015 shentq. All Rights Reserved.</center></h2>
- ******************************************************************************
- */
+  ******************************************************************************
+  * @file    lcd_1.8.cpp
+  * @author  shentq
+  * @version V1.2
+  * @date    2016/08/14
+  * @brief   
+  ******************************************************************************
+  * @attention
+  *
+  * No part of this software may be used for any commercial activities by any form 
+  * or means, without the prior written consent of shentq. This specification is 
+  * preliminary and is subject to change at any time without notice. shentq assumes
+  * no responsibility for any errors contained herein.
+  * <h2><center>&copy; Copyright 2015 shentq. All Rights Reserved.</center></h2>
+  ******************************************************************************
+  */
 
 
 /* Includes ------------------------------------------------------------------*/
 /*******************************
-*   1.8寸液晶屏幕驱动程序
-*   驱动IC:ST7735S
-*   接口：SPI（MODE2、3）
-*   分辨率：128*160
-*   色彩：256K
+1.8寸液晶屏幕驱动程序
+驱动IC:ST7735S
+接口：SPI（MODE2、3）
+分辨率：128*160
+色彩：256K
 *******************************/
 /******************************
- *   硬件连接
- *   GND ->GND
- *   VCC -> 3.3V
- *   SCL -> PA5
- *   SDA -> PA7
- *   RES -> PB3
- *   DC  -> PB4
- *   CS  -> PB5
- *   BL  -> PB6
- *******************************/
+    硬件连接
+    GND ->GND
+    VCC -> 3.3V
+    SCL -> PA5
+    SDA -> PA7
+    RES -> PB3
+    DC  -> PB4
+    CS  -> PB5
+    BL  -> PB6
+*******************************/
 #include "lcd_1.8.h"
 #include "font.h"
 
-#define X_MAX_PIXEL             128
-#define Y_MAX_PIXEL             160
+#define X_MAX_PIXEL	        128
+#define Y_MAX_PIXEL	        160
 
 //Lcd lcd(&PB13,&PB15,&PA13,&PA15,&PA14,&PA12);
 
@@ -62,16 +62,16 @@ void Lcd::begin(uint8_t dev_num)
 }
 void Lcd::soft_reset()
 {
-    write_index(0x01); //soft reset
+    write_index(0x01);//soft reset
 }
 
 void Lcd::on()
 {
-    write_index(0x29); //Display on
+    write_index(0x29);//Display on
 }
 void Lcd::off()
 {
-    write_index(0x28); //Display off
+    write_index(0x28);//Display off
 
 }
 void Lcd::column_order(uint8_t order)
@@ -100,10 +100,10 @@ void Lcd::row_order(uint8_t order)
 }
 
 /*************************************************
-*   函数名：Lcd_Clear
-*   功能：全屏清屏函数
-*   入口参数：填充颜色COLOR
-*   返回值：无
+函数名：Lcd_Clear
+功能：全屏清屏函数
+入口参数：填充颜色COLOR
+返回值：无
 *************************************************/
 void Lcd::clear(uint16_t Color)
 {
@@ -115,11 +115,21 @@ void Lcd::clear(uint16_t Color)
         write_data_16bit(Color);
     }
 }
+void Lcd::clear2(uint16_t Color,uint16_t s_x,uint16_t s_y,uint16_t e_x,uint16_t e_y)
+{
+    unsigned int i;
+    set_region(s_x, s_y, e_x, e_y);
+    write_index(0x2C);
+    for(i = 0; i < (e_x-s_x)* (e_y-s_y); i++)
+    {
+        write_data_16bit(Color);
+    }
+}
 /*************************************************
-*   函数名：LCD_Set_XY
-*   功能：设置lcd显示起始点
-*   入口参数：xy坐标
-*   返回值：无
+函数名：LCD_Set_XY
+功能：设置lcd显示起始点
+入口参数：xy坐标
+返回值：无
 *************************************************/
 void Lcd::set_xy(uint16_t x, uint16_t y)
 {
@@ -136,10 +146,10 @@ void Lcd::draw_pixel(u16 x, u16 y, u16 Data)
 
 
 /*************************************************
-*   函数名：draw_h_line
-*   功能：画一个点
-*   入口参数：无
-*   返回值：无
+函数名：draw_h_line
+功能：画一个点
+入口参数：无
+返回值：无
 *************************************************/
 void Lcd::draw_h_line(int x0, int y0, int x1, uint16_t color)
 {
@@ -151,10 +161,10 @@ void Lcd::draw_h_line(int x0, int y0, int x1, uint16_t color)
 }
 
 /*************************************************
-*   函数名：draw_v_line
-*   功能：画一个点
-*   入口参数：无
-*   返回值：无
+函数名：draw_v_line
+功能：画一个点
+入口参数：无
+返回值：无
 *************************************************/
 void Lcd::draw_v_line(int x0, int y0,  int y1, uint16_t color)
 {
@@ -233,7 +243,7 @@ void Lcd::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t
     dx2 = dx << 1;
     dy2 = dy << 1;
 
-    if (dx > dy) //x距离大于y距离，那么每个x轴上只有一个点，每个y轴上有若干个点
+    if (dx > dy)//x距离大于y距离，那么每个x轴上只有一个点，每个y轴上有若干个点
     {
         //且线的点数等于x距离，以x轴递增画点
         // initialize error term
@@ -261,7 +271,7 @@ void Lcd::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t
             x0 += x_inc; //x坐标值每次画点后都递增1
         } // end for
     } // end if |slope| <= 1
-    else //y轴大于x轴，则每个y轴上只有一个点，x轴若干个点
+    else//y轴大于x轴，则每个y轴上只有一个点，x轴若干个点
     {
         //以y轴为递增画点
         // initialize error term
@@ -292,7 +302,7 @@ void Lcd::draw_line(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t
 }
 void Lcd::draw_circle(uint16_t x, uint16_t y, uint16_t r, uint16_t color)
 {
-    unsigned short a, b;
+    unsigned short  a, b;
     int c;
     a = 0;
     b = r;
@@ -332,7 +342,7 @@ void Lcd::draw_circle(uint16_t x, uint16_t y, uint16_t r, uint16_t color)
 //////////////////////////////////////////////////////////////////////////////////////////////////
 void Lcd::h_disp_char8x16(uint16_t x, uint16_t y, uint8_t ch)
 {
-    if(ch >= 0x20) ch -= 0x20;
+    if(ch >= 0x20)ch -= 0x20;
     set_region(x, y, x + 8, y + 16);
     for (int i = 0; i <= 16; i++)
     {
@@ -360,7 +370,7 @@ void Lcd::disp_char8x16(uint16_t x, uint16_t y, uint8_t ch)
                 draw_point(x + j, y + i, front_color);
             else
             {
-                if(text_mode == ENABLE_BACK_COLOR) draw_point(x + j, y + i, back_color);
+                if(text_mode == ENABLE_BACK_COLOR)draw_point(x + j, y + i, back_color);
             }
         }
     x += 8;
@@ -408,10 +418,10 @@ void Lcd::draw_font_gbk16(uint16_t x, uint16_t y, uint8_t *s)
                 for(i = 0; i < 16; i++)
                     for(j = 0; j < 8; j++)
                     {
-                        if(asc16[k * 16 + i] & (0x80 >> j)) draw_point(x + j, y + i, front_color);
+                        if(asc16[k * 16 + i] & (0x80 >> j))	draw_point(x + j, y + i, front_color);
                         else
                         {
-                            if(text_mode == ENABLE_BACK_COLOR) draw_point(x + j, y + i, back_color);
+                            if(text_mode == ENABLE_BACK_COLOR)draw_point(x + j, y + i, back_color);
                         }
                     }
                 x += 8;
@@ -431,18 +441,18 @@ void Lcd::draw_font_gbk16(uint16_t x, uint16_t y, uint8_t *s)
                     {
                         for(j = 0; j < 8; j++)
                         {
-                            if(hz16[k].Msk[i * 2] & (0x80 >> j)) draw_point(x + j, y + i, front_color);
+                            if(hz16[k].Msk[i * 2] & (0x80 >> j))	draw_point(x + j, y + i, front_color);
                             else
                             {
-                                if(text_mode == ENABLE_BACK_COLOR) draw_point(x + j, y + i, back_color);
+                                if(text_mode == ENABLE_BACK_COLOR)draw_point(x + j, y + i, back_color);
                             }
                         }
                         for(j = 0; j < 8; j++)
                         {
-                            if(hz16[k].Msk[i * 2 + 1] & (0x80 >> j)) draw_point(x + j + 8, y + i, front_color);
+                            if(hz16[k].Msk[i * 2 + 1] & (0x80 >> j))	draw_point(x + j + 8, y + i, front_color);
                             else
                             {
-                                if(text_mode == ENABLE_BACK_COLOR) draw_point(x + j + 8, y + i, back_color);
+                                if(text_mode == ENABLE_BACK_COLOR)draw_point(x + j + 8, y + i, back_color);
                             }
                         }
                     }
@@ -465,10 +475,10 @@ void Lcd::draw_bitmap(const unsigned char *p) //显示40*40 QQ图片
     {
         for(j = 0; j < 3; j++)
         {
-            set_region(40 * j, 40 * k, 40 * j + 39, 40 * k + 39);               //坐标设置
+            set_region(40 * j, 40 * k, 40 * j + 39, 40 * k + 39);		//坐标设置
             for(i = 0; i < 40 * 40; i++)
             {
-                picL = *(p + i * 2);    //数据低位在前
+                picL = *(p + i * 2);	//数据低位在前
                 picH = *(p + i * 2 + 1);
                 write_data_16bit(picH << 8 | picL);
             }
@@ -508,8 +518,8 @@ void Lcd::write_data_16bit(uint16_t Data)
     spi->take_spi_right(&config);
     cs->reset();
     rs->set();
-    spi->write(Data >> 8);      //写入高8位数据
-    spi->write(Data);                   //写入低8位数据
+    spi->write(Data >> 8); 	//写入高8位数据
+    spi->write(Data); 			//写入低8位数据
     cs->set();
     spi->release_spi_right();
 }
@@ -520,10 +530,10 @@ void Lcd::write_reg(uint8_t Index, uint8_t Data)
     write_data_8bit(Data);
 }
 /*************************************************
-*   函数名：set_region
-*   功能：设置lcd显示区域，在此区域写点数据自动换行
-*   入口参数：xy起点和终点
-*   返回值：无
+函数名：set_region
+功能：设置lcd显示区域，在此区域写点数据自动换行
+入口参数：xy起点和终点
+返回值：无
 *************************************************/
 void Lcd::set_region(uint16_t x_start, uint16_t y_start, uint16_t x_end, uint16_t y_end)
 {
@@ -555,7 +565,7 @@ void Lcd::init(void)
     reset(); //Reset before Lcd Init.
 
     //Lcd Init For 1.44Inch Lcd Panel with ST7735R.
-    write_index(0x11); //Sleep exit
+    write_index(0x11);//Sleep exit
     delay_ms (120);
 
     //ST7735R Frame Rate
@@ -668,13 +678,13 @@ void Lcd::init(void)
     write_data_8bit(0x00);
     write_data_8bit(0x05);
     /////////////////////////////////
-    write_index(0x29); //Display on
+    write_index(0x29);//Display on
 }
 /*************************************************
-*   函数名：LCD_DrawPoint
-*   功能：画一个点
-*   入口参数：无
-*   返回值：无
+函数名：LCD_DrawPoint
+功能：画一个点
+入口参数：无
+返回值：无
 *************************************************/
 inline void Lcd::draw_point(uint16_t x, uint16_t y, uint16_t Data)
 {

@@ -2010,7 +2010,7 @@ GUI_CHARINFO GUI_FontHZ_16x16_CharInfo[99] = {
     { 3, 16, 1, acFontHZ_002C }, /*12: ,*/
     { 3, 16, 1, acFontHZ_002D }, /*13: -*/
     { 3, 16, 1, acFontHZ_002E }, /*14: .*/
-    { 5, 16, 1, acFontHZ_002F }, /*15: /*/
+    { 5, 16, 1, acFontHZ_002F }, /*15: \/*/
     { 6, 16, 1, acFontHZ_0030 }, /*16: 0*/
     { 6, 16, 1, acFontHZ_0031 }, /*17: 1*/
     { 6, 16, 1, acFontHZ_0032 }, /*18: 2*/

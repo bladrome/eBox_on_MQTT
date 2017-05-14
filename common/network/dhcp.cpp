@@ -816,9 +816,9 @@ int DHCP::begin(uint8_t mac[])
             break;
     }
 #if USE_HEAP
-    DHCP_DBG("--mem:%ul\r\n",mem_get_free_size());
+    DHCP_DBG("--mem:%l\r\n",mem_get_free_size());
     mem_free(pRIPMSG,1);
-    DHCP_DBG("--mem:%ul\r\n",mem_get_free_size());
+    DHCP_DBG("--mem:%l\r\n",mem_get_free_size());
 #endif
 
     return ret;

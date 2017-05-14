@@ -126,7 +126,7 @@ int List::insert(int at,const void *data)
 
 int List::remove(int at)
 {
-    Node *node_prev,*node_at,*e;
+    Node *node_prev,*node_at;
     int pos_at;
     int found = 0;
     if(is_empty() || at < 0 ) return -1;

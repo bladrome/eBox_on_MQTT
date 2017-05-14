@@ -18,6 +18,9 @@
 #include "WString.h"
 #include "dht11.h"
 #include "colorled.h"
+#include "lcd_1.8.h"
+#include "color_convert.h"
+#include "gui.h"
 
 #define MQTT_SSID             "LION"
 #define MQTT_PASSWORD         "zijicaia"
@@ -51,6 +54,11 @@ MQTT::Client<WifiIPStack, Countdown> client = MQTT::Client<WifiIPStack, Countdow
 Dht11 sensor(&PB2);
 COLORLED led(&PB7, &PB8, &PB9);
 
+
+// LCD display
+Lcd lcd(&PB5, &PB6, &PB4, &PB3, &spi1);
+GUI gui(&lcd, 128, 160);
+
 void connect(void);
 void messageArrived(MQTT::MessageData& md);
 void messageLEDcommand(MQTT::MessageData& md);
@@ -63,6 +71,9 @@ void setup()
     led.begin();
     led.color_rgb(255, 0, 0);
     PB10.mode(OUTPUT_PP);
+	lcd.begin(1);
+	gui.begin();
+	gui.fill_screen(RED);
     wifi.begin();
     wifi.join_ap(MQTT_SSID, MQTT_PASSWORD);
     connect();
@@ -156,6 +167,25 @@ int main()
 //        else
 //            client.yield(1000);
 //		delay_ms(500);
+		String strline;
+		lcd.clear2(RED, 8 * 10, 0, 160, 60);
+		gui.set_text_mode(LCD_TEXTMODE_TRANS);
+		gui.set_font(&GUI_FontHZ16X16);
+		gui.set_color(BLUE);
+		
+		strline = String("Temperature:") + String(sensor.getTemperature()) + String("C");
+		gui.set_cursor(16, 0);
+		gui.disp_string(strline.c_str());
+		strline = String("Humidity:       ") + String(sensor.getHumidity()) + String("%");
+		gui.set_cursor(16, 16);
+		gui.disp_string(strline.c_str());
+		strline = String("Led color:      ") + String(chledcolorstate[ledcolorstate]);
+		gui.set_cursor(16, 32);
+		gui.disp_string(strline.c_str());
+		strline = String("Counter:        ") + String(count);
+		gui.set_cursor(16, 48);
+		gui.disp_string(strline.c_str());
+		
         count++;
         if(count == 1000)
             count = 0;

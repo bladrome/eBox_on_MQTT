@@ -47,6 +47,7 @@ public:
     void        begin(uint8_t dev_num);
     void        soft_reset();
     void        clear(u16 Color);
+	void        clear2(uint16_t Color,uint16_t s_x,uint16_t s_y,uint16_t e_x,uint16_t e_y);
     void        on();
     void        off();
     void        column_order(uint8_t order);
