@@ -29,9 +29,9 @@
 #define MQTT_SERVER_PORT      1883
 
 // Yiled time in ms.
-const int QOS0_YILED_TIME = 100;
-const int QOS1_YILED_TIME = 2000;
-const int QOS2_YILED_TIME = 2000;
+const int QOS0_YIELD_TIME = 100;
+const int QOS1_YIELD_TIME = 2000;
+const int QOS2_YIELD_TIME = 2000;
 
 // Packages counter.
 int arrivedcount = 0;
@@ -44,6 +44,7 @@ const char* topic_colorled = "eBox-sample/colorled";
 const char* topic_temperature = "eBox-sample/temperature";
 const char* topic_humidity = "eBox-sample/humidity";
 const char* topic_counter = "eBox-sample/counter";
+const char* topic_bus = "eBox-sample/bus";
 
 // MQTT Network stack.
 WIFI_TCP tcp(&wifi);
@@ -64,6 +65,34 @@ void messageArrived(MQTT::MessageData& md);
 void messageLEDcommand(MQTT::MessageData& md);
 void messageFancommand(MQTT::MessageData& md);
 
+int station[11][2]={
+		{8, 0},
+		{6, 3},
+		{0, 7},
+		{0, 10},
+		{8, 10},
+		{8, 16},
+		{20, 16},
+		{20, 10},
+		{30, 7},
+		{20, 3},
+		{12, 0}
+};
+int stadistance[11] = {0};
+int arrived = 0;
+int load = 0;
+
+void stadistance_init(void)
+{
+		for(int i = 0; i < 10; i++){
+				stadistance[i] = abs(station[i][0] - station[i + 1][0])
+						+ abs(station[i][1] - station[i + 1][1]);
+		}
+		stadistance[10] = abs(station[10][0] - station[0][0])
+				+ abs(station[10][1] - station[0][1]);
+}
+
+
 void setup()
 {
     ebox_init();
@@ -71,6 +100,7 @@ void setup()
     led.begin();
     led.color_rgb(255, 0, 0);
     PB10.mode(OUTPUT_PP);
+	stadistance_init();
 	lcd.begin(1);
 	gui.begin();
 	gui.fill_screen(RED);
@@ -83,6 +113,8 @@ int main()
 {
     int rc = 0;
     int count = 0;
+	arrived = 0;
+	load = 0;
     setup();
     while(1)
     {
@@ -104,7 +136,7 @@ int main()
         if (rc != 0 )
             uart1.printf("Error %d from sending temperature message\n", rc);
         else
-            client.yield(QOS0_YILED_TIME);
+            client.yield(QOS0_YIELD_TIME);
 
         // Send humidity
         String strhumidity = String(sensor.getHumidity()) + String("%");
@@ -117,7 +149,7 @@ int main()
         if (rc != 0 )
             uart1.printf("Error %d from sending humidity message\n", rc);
         else
-            client.yield(QOS0_YILED_TIME);
+            client.yield(QOS0_YIELD_TIME);
 
         // Send counter
         String strcount = String(count);
@@ -130,8 +162,33 @@ int main()
         if (rc != 0 )
             uart1.printf("Error %d from sending counter message\n", rc);
         else
-            client.yield(QOS0_YILED_TIME);
+            client.yield(QOS0_YIELD_TIME);
 
+		// bus info
+		load += stadistance[arrived] / (random(4) + 2);
+		if( load >= stadistance[arrived] ){
+				load = 0;
+				arrived += 1;
+				if( arrived >= 11 )
+						arrived = 0;
+		}
+		uart1.printf("Arrived:%d, load:%d\n", arrived, load);
+
+		// Send and receive QoS 1 message
+		String strbusinfo = String("BUS 2 Arrived: STA") + 
+		                    String(arrived) +
+	                    	String(" Distance to next station: ") + 
+		                    String(stadistance[arrived] - load) + 
+		                    String("00m");
+		message.qos = MQTT::QOS1;
+		message.payloadlen = strbusinfo.length() + 1;
+		message.payload = (void*)strbusinfo.c_str();
+		rc = client.publish(topic_bus, message);
+		if (rc != 0 )
+			uart1.printf("Error %d from sending businfo message\n", rc);
+		else
+			client.yield(QOS1_YIELD_TIME);
+		
 //        // Send and receive QoS 1 message
 //        uart1.printf("Hello World!  QoS 1 message\n");
 //        message.qos = MQTT::QOS1;
@@ -169,6 +226,7 @@ int main()
 //		delay_ms(500);
 		String strline;
 		lcd.clear2(RED, 8 * 10, 0, 160, 60);
+		lcd.clear2(RED, 0,      60, 160, 80);
 		gui.set_text_mode(LCD_TEXTMODE_TRANS);
 		gui.set_font(&GUI_FontHZ16X16);
 		gui.set_color(BLUE);
@@ -184,6 +242,9 @@ int main()
 		gui.disp_string(strline.c_str());
 		strline = String("Counter:        ") + String(count);
 		gui.set_cursor(16, 48);
+		gui.disp_string(strline.c_str());
+		strline = String("Bus: ") + String(arrived) + String(" for next ") + String(load*100) + String("m");
+		gui.set_cursor(16, 60);
 		gui.disp_string(strline.c_str());
 		
         count++;
@@ -245,7 +306,7 @@ void connect()
     if (rc != 0 )
         uart1.printf("Error %d from sending color led state message\n", rc);
     else
-        client.yield(QOS0_YILED_TIME);
+        client.yield(QOS0_YIELD_TIME);
 }
 
 
